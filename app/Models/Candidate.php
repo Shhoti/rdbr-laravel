@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Candidate extends Model
+class Candidate extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory,InteractsWithMedia;
 
     protected $with = ['skills','statusHistories.comments','status'];
 
@@ -33,6 +35,11 @@ class Candidate extends Model
     public function status()
     {
         return $this->hasOne(\App\Models\StatusHistory::class)->orderBy('created_at','DESC');
+    }
+
+    public function registerMediaCollections() : void
+    {
+        $this->addMediaCollection('cv')->singleFile();
     }
   
 

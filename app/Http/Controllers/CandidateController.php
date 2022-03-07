@@ -62,6 +62,12 @@ class CandidateController extends Controller
             $this->addSkills($request->input('skills'), $candidate);
         }
 
+        if($request->file('cv'))
+        {
+            $candidate->addMediaFromRequest('cv')
+                    ->toMediaCollection('cv');
+        }
+
         return new ResourcesCandidate($candidate);
     }
 

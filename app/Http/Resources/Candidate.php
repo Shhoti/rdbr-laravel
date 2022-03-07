@@ -24,6 +24,7 @@ class Candidate extends JsonResource
             'skills' => Skill::collection($this->skills),
             'status' => new Status($this->status),
             'timeline' => Status::collection($this->statusHistories),
+            'cv' => $this->getFirstMediaUrl('cv'),
         ];
     }
 }
