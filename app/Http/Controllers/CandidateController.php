@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Status;
 use App\Http\Requests\StoreCandidateRequest;
 use App\Http\Requests\UpdateCandidateRequest;
+use App\Http\Resources\Candidate as ResourcesCandidate;
+use App\Http\Resources\CandidateCollection;
 use App\Models\Candidate;
+use Illuminate\Http\Request;
 
 class CandidateController extends Controller
 {
@@ -13,9 +17,17 @@ class CandidateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Candidate::query();
+        if($request->has('status'))
+        {
+            $query->whereHas('status',function($statusRelationshipQuery) use ($request) {
+                $statusRelationshipQuery->where('status',Status::coerce($request->get('status')));
+            });
+        }
+
+        return new CandidateCollection($query->paginate(4));
     }
 
     /**

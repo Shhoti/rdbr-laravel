@@ -30,3 +30,4 @@ class StatusHistory extends Model
     }
 
 }
+ 
