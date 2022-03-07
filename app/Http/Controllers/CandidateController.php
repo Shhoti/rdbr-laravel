@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCandidateRequest;
 use App\Http\Resources\Candidate as ResourcesCandidate;
 use App\Http\Resources\CandidateCollection;
 use App\Models\Candidate;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 
 class CandidateController extends Controller
@@ -57,6 +58,10 @@ class CandidateController extends Controller
             'linkedin_url' => $request->input('linkedin_url'),
         ]);
 
+        if ($request->input('skills')) {
+            $this->addSkills($request->input('skills'), $candidate);
+        }
+
         return new ResourcesCandidate($candidate);
     }
 
@@ -103,5 +108,13 @@ class CandidateController extends Controller
     public function destroy(Candidate $candidate)
     {
         //
+    }
+
+
+    private function addSkills(array $skills, Candidate $candidate)
+    {
+        $candidate->skills()->saveMany(collect($skills)->map(fn ($skill) => new Skill([
+            'title' => $skill
+        ])));
     }
 }

@@ -20,7 +20,8 @@ class Candidate extends JsonResource
             'position' => $this->position,
             'linkedin_url' => $this->linkedin_url,
             'min_salary' => $this->min_salary,
-            'max_salary' => $this->max_salary
+            'max_salary' => $this->max_salary,
+            'skills' => Skill::collection($this->skills)
         ];
     }
 }

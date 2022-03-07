@@ -30,6 +30,7 @@ class StoreCandidateRequest extends FormRequest
             'min_salary' => 'nullable|integer',
             'max_salary' => 'nullable|integer',
             'linkedin_url' => 'nullable|string|max:255',
+            'skills' => 'nullable|array'
         ];
     }
 }
