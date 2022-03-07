@@ -9,7 +9,7 @@ class Candidate extends Model
 {
     use HasFactory;
 
-    protected $with = ['skills','statusHistories','status'];
+    protected $with = ['skills','statusHistories.comments','status'];
 
     protected $fillable = [
         'first_name',

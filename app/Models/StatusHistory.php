@@ -24,4 +24,9 @@ class StatusHistory extends Model
         return $this->belongsTo(\App\Models\Candidate::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(\App\Models\Comment::class);
+    }
+
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Candidate;
+use App\Models\Comment;
 use App\Models\Skill;
 use App\Models\StatusHistory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,7 +20,8 @@ class CandidateSeeder extends Seeder
     {
         Candidate::factory(2)
             ->has(Skill::factory(5))
-            ->has(StatusHistory::factory(2))
+            ->has(StatusHistory::factory(2)
+            ->has(Comment::factory(2)))
             ->create();
     }
 }
