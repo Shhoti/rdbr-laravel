@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCandidateRequest;
 use App\Http\Requests\UpdateCandidateRequest;
 use App\Http\Resources\Candidate as ResourcesCandidate;
 use App\Http\Resources\CandidateCollection;
+use App\Http\Resources\Status as ResourcesStatus;
 use App\Models\Candidate;
 use App\Models\Comment;
 use App\Models\Skill;
@@ -95,6 +96,11 @@ class CandidateController extends Controller
         }
 
         return new ResourcesCandidate($candidate);
+    }
+
+    public function timeline(Candidate $candidate)
+    {
+        return  ResourcesStatus::collection($candidate->statusHistories);
     }
 
 
