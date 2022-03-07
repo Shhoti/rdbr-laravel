@@ -9,7 +9,7 @@ class Candidate extends Model
 {
     use HasFactory;
 
-    protected $with = 'skills';
+    protected $with = ['skills','statusHistories','status'];
 
     protected $fillable = [
         'first_name',
@@ -24,5 +24,16 @@ class Candidate extends Model
     {
         return $this->hasMany(\App\Models\Skill::class);
     }
+
+    public function statusHistories()
+    {
+        return $this->hasMany(\App\Models\StatusHistory::class)->orderBy('created_at','DESC');
+    }
+
+    public function status()
+    {
+        return $this->hasOne(\App\Models\StatusHistory::class)->orderBy('created_at','DESC');
+    }
+  
 
 }
