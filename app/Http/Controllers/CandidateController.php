@@ -48,7 +48,16 @@ class CandidateController extends Controller
      */
     public function store(StoreCandidateRequest $request)
     {
-        //
+        $candidate = Candidate::create([
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'position' => $request->input('position'),
+            'min_salary' => $request->input('min_salary'),
+            'max_salary' => $request->input('max_salary'),
+            'linkedin_url' => $request->input('linkedin_url'),
+        ]);
+
+        return new ResourcesCandidate($candidate);
     }
 
     /**

@@ -13,7 +13,7 @@ class StoreCandidateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class StoreCandidateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'position' => 'required',
+            'min_salary' => 'nullable|integer',
+            'max_salary' => 'nullable|integer',
+            'linkedin_url' => 'nullable|string|max:255',
         ];
     }
 }
