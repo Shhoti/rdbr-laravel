@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Enums\Status;
 use App\Http\Requests\StoreCandidateRequest;
-use App\Http\Requests\UpdateCandidateRequest;
 use App\Http\Resources\Candidate as ResourcesCandidate;
 use App\Http\Resources\CandidateCollection;
 use App\Http\Resources\Status as ResourcesStatus;
@@ -12,11 +11,8 @@ use App\Models\Candidate;
 use App\Models\Comment;
 use App\Models\Skill;
 use App\Models\StatusHistory;
-use BenSampo\Enum\Rules\Enum;
-use BenSampo\Enum\Rules\EnumKey;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Enum as RulesEnum;
 
 class CandidateController extends Controller
 {
@@ -36,16 +32,6 @@ class CandidateController extends Controller
         }
 
         return new CandidateCollection($query->paginate(4));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -114,41 +100,6 @@ class CandidateController extends Controller
     {
         return new ResourcesCandidate($candidate);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Candidate  $candidate
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Candidate $candidate)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCandidateRequest  $request
-     * @param  \App\Models\Candidate  $candidate
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCandidateRequest $request, Candidate $candidate)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Candidate  $candidate
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Candidate $candidate)
-    {
-        //
-    }
-
 
     private function addSkills(array $skills, Candidate $candidate)
     {
