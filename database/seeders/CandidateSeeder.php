@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Candidate;
+use App\Models\Skill;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +16,8 @@ class CandidateSeeder extends Seeder
      */
     public function run()
     {
-        Candidate::factory(5)->create();
+        Candidate::factory(2)
+            ->has(Skill::factory(5))
+            ->create();
     }
 }

@@ -9,6 +9,8 @@ class Candidate extends Model
 {
     use HasFactory;
 
+    protected $with = 'skills';
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -17,5 +19,10 @@ class Candidate extends Model
         'max_salary',
         'linkedin_url',
     ];
-    
+
+    public function skills()
+    {
+        return $this->hasMany(\App\Models\Skill::class);
+    }
+
 }
