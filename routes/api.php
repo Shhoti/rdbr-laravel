@@ -18,5 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::name('candidates.')->prefix('/candidates')->group(function () {
     Route::get('/', [CandidateController::class, 'index'])->name('index');
     Route::post('/', [CandidateController::class, 'store'])->name('store');
+    Route::get('/{candidate}', [CandidateController::class, 'show'])->name('show');
+    Route::post('/{candidate}/status', [CandidateController::class, 'changeStatus'])->name('changeStatus');
+
 
 });

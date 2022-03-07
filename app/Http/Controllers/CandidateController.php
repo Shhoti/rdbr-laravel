@@ -8,8 +8,14 @@ use App\Http\Requests\UpdateCandidateRequest;
 use App\Http\Resources\Candidate as ResourcesCandidate;
 use App\Http\Resources\CandidateCollection;
 use App\Models\Candidate;
+use App\Models\Comment;
 use App\Models\Skill;
+use App\Models\StatusHistory;
+use BenSampo\Enum\Rules\Enum;
+use BenSampo\Enum\Rules\EnumKey;
+use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Enum as RulesEnum;
 
 class CandidateController extends Controller
 {
@@ -71,6 +77,27 @@ class CandidateController extends Controller
         return new ResourcesCandidate($candidate);
     }
 
+
+    public function changeStatus(Request $request, Candidate $candidate)
+    {
+        $request->validate([
+            'status' => [new  EnumValue(Status::class)],
+            'comment' => 'nullable|string'
+        ]);
+        $statusHistory = StatusHistory::create([
+            'status' => Status::coerce($request->input('status')),
+            'candidate_id' => $candidate->id,
+        ]);
+
+        if($request->has('comment'))
+        {
+            $this->addComment($request->get('comment'), $statusHistory);
+        }
+
+        return new ResourcesCandidate($candidate);
+    }
+
+
     /**
      * Display the specified resource.
      *
@@ -79,7 +106,7 @@ class CandidateController extends Controller
      */
     public function show(Candidate $candidate)
     {
-        //
+        return new ResourcesCandidate($candidate);
     }
 
     /**
@@ -122,5 +149,13 @@ class CandidateController extends Controller
         $candidate->skills()->saveMany(collect($skills)->map(fn ($skill) => new Skill([
             'title' => $skill
         ])));
+    }
+
+    private function addComment(String $com, StatusHistory $statusHistory)
+    {
+            Comment::create([
+                'text' => $com,
+                'status_history_id' => $statusHistory->id,
+            ]);
     }
 }

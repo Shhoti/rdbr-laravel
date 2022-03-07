@@ -11,7 +11,6 @@ class Candidate extends Model implements HasMedia
 {
     use HasFactory,InteractsWithMedia;
 
-    protected $with = ['skills','statusHistories.comments','status'];
 
     protected $fillable = [
         'first_name',
