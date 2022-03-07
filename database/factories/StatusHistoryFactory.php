@@ -17,7 +17,7 @@ class StatusHistoryFactory extends Factory
     public function definition()
     {
         return [
-            'status' => $this->faker->word(),
+            'status' => rand(0,5)
         ];
     }
 }
