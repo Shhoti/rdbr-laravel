@@ -20,8 +20,8 @@ class CandidateFactory extends Factory
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'position' => $this->faker->jobTitle(),
-            'min_salary' => rand(1000,2000),
-            'max_salary' => rand(2000,3000),
+            'min_salary' => $this->faker->optional($weight = 0.5)->numberBetween(1000,2000),
+            'max_salary' => $this->faker->optional($weight = 0.5)->numberBetween(2000,5000),
             'linkedin_url' => $this->faker->url()
         ];
     }
